@@ -63,6 +63,7 @@ public class EthereumWalletDiscoveryController {
 	@RequestMapping("/startDiscoveryIncrement")
 	public void startDiscoveryIncrement() {
 		String privateKey = ethereumWalletService.getRandomPK();
+		System.out.println("Random PK : " + privateKey);
 		for (int i = 0; i < 100001; i++) {
 			String orderedPK = ethereumWalletService.incrementPK(privateKey);
 			privateKey = orderedPK;
@@ -74,6 +75,7 @@ public class EthereumWalletDiscoveryController {
 			if (i > 0 && i % 1000 == 0) {
 				System.out.println("Count : " + i);
 				privateKey = ethereumWalletService.getRandomPK();
+				System.out.println("New generated Random PK : " + privateKey);
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
