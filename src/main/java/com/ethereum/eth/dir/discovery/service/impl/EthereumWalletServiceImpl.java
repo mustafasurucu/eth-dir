@@ -31,10 +31,11 @@ public class EthereumWalletServiceImpl implements EthereumWalletService {
     public String getRandomPK() {
         Random r = new Random();
         StringBuffer sb = new StringBuffer();
-        sb.append(Integer.toHexString(8));
-        while (sb.length() < 63) {
+        while (sb.length() < 64) {
             sb.append(Integer.toHexString(r.nextInt()));
         }
+
+        sb.setCharAt(0, '8');
 
         return sb.toString().substring(0, 64);
     }
