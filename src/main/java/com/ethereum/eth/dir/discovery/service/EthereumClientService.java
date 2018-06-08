@@ -6,9 +6,9 @@ import com.ethereum.eth.dir.discovery.model.EthereumWallet;
 
 public interface EthereumClientService {
 
-	EthereumWallet getWalletWithAddress(String privateKey, String address);
+	EthereumWallet getWalletByAddress(String privateKey, String address);
 
-	EthereumWallet getWalletWithPrivateKey(String privateKey);
+	EthereumWallet getWalletByPrivateKey(String privateKey);
 
 	void transferEther(String fromPK, String toAddress, BigInteger amount);
 

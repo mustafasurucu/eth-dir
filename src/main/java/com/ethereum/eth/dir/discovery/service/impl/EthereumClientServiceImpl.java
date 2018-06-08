@@ -37,7 +37,7 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 	}
 
 	@Override
-	public EthereumWallet getWalletWithAddress(String privateKey, String address) {
+	public EthereumWallet getWalletByAddress(String privateKey, String address) {
 
 		if (StringUtils.isEmpty(address)) {
 			return null;
@@ -55,7 +55,7 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 	}
 
 	@Override
-	public EthereumWallet getWalletWithPrivateKey(String privateKey) {
+	public EthereumWallet getWalletByPrivateKey(String privateKey) {
 		String address = null;
 		if (WalletUtils.isValidPrivateKey(privateKey)) {
 			BigInteger key = new BigInteger(privateKey, 16);
@@ -67,7 +67,7 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 			return null;
 		}
 
-		EthereumWallet wallet = getWalletWithAddress(privateKey, address);
+		EthereumWallet wallet = getWalletByAddress(privateKey, address);
 		wallet.setPrivateKey(privateKey);
 		return wallet;
 	}
