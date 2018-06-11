@@ -56,6 +56,16 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 
 	@Override
 	public EthereumWallet getWalletByPrivateKey(String privateKey) {
+		String address = getAddressByPrivateKey(privateKey);
+		if (address == null) {
+			return null;
+		}
+		EthereumWallet wallet = getWalletByAddress(privateKey, address);
+		wallet.setPrivateKey(privateKey);
+		return wallet;
+	}
+
+	public String getAddressByPrivateKey(String privateKey) {
 		String address = null;
 		if (WalletUtils.isValidPrivateKey(privateKey)) {
 			BigInteger key = new BigInteger(privateKey, 16);
@@ -66,10 +76,7 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 			System.out.println("Not a valid PK");
 			return null;
 		}
-
-		EthereumWallet wallet = getWalletByAddress(privateKey, address);
-		wallet.setPrivateKey(privateKey);
-		return wallet;
+		return address;
 	}
 
 	@Override

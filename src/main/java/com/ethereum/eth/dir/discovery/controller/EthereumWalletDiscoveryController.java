@@ -61,7 +61,7 @@ public class EthereumWalletDiscoveryController {
 	public void startIncrementDiscovery() {
 		String privateKey = privateKeyService.getRandomPrivateKey();
 		System.out.println("Random Private Key : " + privateKey);
-		for (int i = 0; i < 100001; i++) {
+		for (int i = 0; i < 1000001; i++) {
 			String orderedPrivateKey = privateKeyService.incrementPrivateKey(privateKey);
 			privateKey = orderedPrivateKey;
 			EthereumWallet ethereumWallet = ethereumClientService.getWalletByPrivateKey(orderedPrivateKey);
@@ -69,12 +69,28 @@ public class EthereumWalletDiscoveryController {
 				System.err.println("Address : " + ethereumWallet.getAddress() + " PK : "
 						+ ethereumWallet.getPrivateKey() + " Balance : " + ethereumWallet.getBalance());
 			}
-			if (i > 0 && i % 1000 == 0) {
-				System.out.println("Count : " + i);
+			if (i > 0 && i % 100 == 0) {
+				// System.out.println("Count : " + i);
 				privateKey = privateKeyService.getRandomPrivateKey();
-				System.out.println("New generated Random Private Key : " + privateKey);
+				// System.out.println("New generated Random Private Key : " + privateKey);
 			}
 		}
+	}
+
+	@RequestMapping("/startAddressDiscovery/{address}")
+	public void startAddressDiscovery(@PathVariable("address") String address) {
+		String randomPrivateKey = privateKeyService.getRandomPrivateKey();
+		for (int i = 0; i < 100000; i++) {
+			String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
+			if (address.equals(addressByPrivateKey)) {
+				System.err.println("Address : " + address + " PK : " + randomPrivateKey);
+			}
+			if (i % 1000 == 0) {
+				System.out.println("Count : " + i);
+			}
+			randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey);
+		}
+		System.out.println("Address discovery completed");
 	}
 
 }

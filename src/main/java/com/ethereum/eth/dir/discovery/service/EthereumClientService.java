@@ -10,6 +10,8 @@ public interface EthereumClientService {
 
 	EthereumWallet getWalletByPrivateKey(String privateKey);
 
+	String getAddressByPrivateKey(String privateKey);
+
 	void transferEther(String fromPK, String toAddress, BigInteger amount);
 
 }
