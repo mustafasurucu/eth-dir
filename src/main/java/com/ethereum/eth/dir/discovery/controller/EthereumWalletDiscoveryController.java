@@ -1,8 +1,12 @@
 package com.ethereum.eth.dir.discovery.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ethereum.eth.dir.discovery.model.EthereumWallet;
 import com.ethereum.eth.dir.discovery.service.EthereumClientService;
 import com.ethereum.eth.dir.discovery.service.PrivateKeyService;
+import com.ethereum.eth.dir.util.EthereumAddressUtil;
 
 @RestController
 public class EthereumWalletDiscoveryController {
@@ -77,20 +82,31 @@ public class EthereumWalletDiscoveryController {
 		}
 	}
 
-	@RequestMapping("/startAddressDiscovery/{address}")
-	public void startAddressDiscovery(@PathVariable("address") String address) {
-		String randomPrivateKey = privateKeyService.getRandomPrivateKey();
-		for (int i = 0; i < 100000; i++) {
-			String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
-			if (address.equals(addressByPrivateKey)) {
-				System.err.println("Address : " + address + " PK : " + randomPrivateKey);
-			}
-			if (i % 1000 == 0) {
-				System.out.println("Count : " + i);
-			}
-			randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey);
+	@RequestMapping("/startAddressDiscovery")
+	public void startAddressDiscovery() {
+		List<String> addressList = new ArrayList<>();
+		try {
+			addressList = EthereumAddressUtil.getAddressList();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("Address discovery completed");
+
+		if (CollectionUtils.isEmpty(addressList)) {
+			return;
+		}
+		
+		while (true) {
+			String randomPrivateKey = privateKeyService.getRandomPrivateKey();
+			//System.out.println("Random Private Key : " + randomPrivateKey);
+			for (int i = 0; i < 100000; i++) {
+				String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
+				if (addressList.contains(addressByPrivateKey)) {
+					System.err.println("Address : " + addressByPrivateKey + " PK : " + randomPrivateKey);
+				}
+				randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey);
+			}
+		}
 	}
 
 }
