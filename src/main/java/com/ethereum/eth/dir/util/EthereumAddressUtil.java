@@ -7,8 +7,8 @@ import java.util.List;
 
 public class EthereumAddressUtil {
 
-	public static List<String> getAddressList() throws IOException {
-		return Files.readAllLines(Paths.get("D:\\Projects\\eth-dir\\address\\address.txt"));
+	public static List<String> getAddressList(String path) throws IOException {
+		return Files.readAllLines(Paths.get(path));
 	}
 
 }

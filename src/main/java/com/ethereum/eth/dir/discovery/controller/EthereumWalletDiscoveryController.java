@@ -3,6 +3,7 @@ package com.ethereum.eth.dir.discovery.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,9 +85,10 @@ public class EthereumWalletDiscoveryController {
 
 	@RequestMapping("/startAddressDiscovery")
 	public void startAddressDiscovery() {
+		URL resource = this.getClass().getClassLoader().getResource("address/address.txt");
 		List<String> addressList = new ArrayList<>();
 		try {
-			addressList = EthereumAddressUtil.getAddressList();
+			addressList = EthereumAddressUtil.getAddressList(resource.getPath());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
