@@ -100,7 +100,7 @@ public class EthereumWalletDiscoveryController {
 		
 		while (true) {
 			String randomPrivateKey = privateKeyService.getRandomPrivateKey();
-			//System.out.println("Random Private Key : " + randomPrivateKey);
+			System.out.println("Random Private Key : " + randomPrivateKey);
 			for (int i = 0; i < 100000; i++) {
 				String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
 				if (addressList.contains(addressByPrivateKey)) {
