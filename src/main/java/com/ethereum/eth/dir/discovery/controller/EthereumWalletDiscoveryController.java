@@ -87,6 +87,7 @@ public class EthereumWalletDiscoveryController {
 	public void startAddressDiscovery() {
 		URL resource = this.getClass().getClassLoader().getResource("address/address.txt");
 		List<String> addressList = new ArrayList<>();
+		List<String> lowerCaseAddressList = new ArrayList<>();
 		try {
 			addressList = EthereumAddressUtil.getAddressList(resource.getPath());
 		} catch (IOException e) {
@@ -97,13 +98,15 @@ public class EthereumWalletDiscoveryController {
 		if (CollectionUtils.isEmpty(addressList)) {
 			return;
 		}
-		
+
+		addressList.forEach(s -> lowerCaseAddressList.add(s.toLowerCase()));
+
 		while (true) {
 			String randomPrivateKey = privateKeyService.getRandomPrivateKey();
 			System.out.println("Random Private Key : " + randomPrivateKey);
 			for (int i = 0; i < 100000; i++) {
 				String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
-				if (addressList.contains(addressByPrivateKey)) {
+				if (lowerCaseAddressList.contains(addressByPrivateKey)) {
 					System.err.println("Address : " + addressByPrivateKey + " PK : " + randomPrivateKey);
 				}
 				randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey);
