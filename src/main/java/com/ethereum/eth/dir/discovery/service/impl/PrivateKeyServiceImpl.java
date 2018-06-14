@@ -18,7 +18,11 @@ public class PrivateKeyServiceImpl implements PrivateKeyService {
 			sb.append(Integer.toHexString(r.nextInt()));
 		}
 
-		// sb.setCharAt(0, '7');
+		//sb.setCharAt(0, '7');
+		sb.setCharAt(60, '0');
+		sb.setCharAt(61, '0');
+		sb.setCharAt(62, '0');
+		sb.setCharAt(63, '0');
 
 		return sb.toString().substring(0, 64);
 	}
