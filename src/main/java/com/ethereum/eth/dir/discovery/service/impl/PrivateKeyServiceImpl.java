@@ -17,13 +17,16 @@ public class PrivateKeyServiceImpl implements PrivateKeyService {
 		while (sb.length() < 64) {
 			sb.append(Integer.toHexString(r.nextInt()));
 		}
+
+		// sb.setCharAt(0, '7');
+
 		return sb.toString().substring(0, 64);
 	}
 
 	@Override
-	public String incrementPrivateKey(String privateKey, BigInteger amount) {
+	public String incrementPrivateKey(String privateKey) {
 		BigInteger decimal = new BigInteger(privateKey, 16);
-		decimal = decimal.add(amount);
+		decimal = decimal.add(BigInteger.ONE);
 		return decimal.toString(16);
 	}
 
