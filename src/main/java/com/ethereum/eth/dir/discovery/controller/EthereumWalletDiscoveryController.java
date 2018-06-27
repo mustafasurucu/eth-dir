@@ -68,7 +68,7 @@ public class EthereumWalletDiscoveryController {
 		String privateKey = privateKeyService.getRandomPrivateKey();
 		System.out.println("Random Private Key : " + privateKey);
 		for (int i = 0; i < 1000001; i++) {
-			String orderedPrivateKey = privateKeyService.incrementPrivateKey(privateKey);
+			String orderedPrivateKey = privateKeyService.incrementPrivateKey(privateKey, BigInteger.ONE);
 			privateKey = orderedPrivateKey;
 			EthereumWallet ethereumWallet = ethereumClientService.getWalletByPrivateKey(orderedPrivateKey);
 			if (ethereumWallet != null && ethereumWallet.getBalance().compareTo(BigDecimal.ZERO) > 0) {
@@ -104,12 +104,16 @@ public class EthereumWalletDiscoveryController {
 		while (true) {
 			String randomPrivateKey = privateKeyService.getRandomPrivateKey();
 			System.out.println("Random Private Key : " + randomPrivateKey);
-			for (int i = 0; i < 100000; i++) {
+			for (int i = 0; i < 1000000; i++) {
 				String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
 				if (lowerCaseAddressList.contains(addressByPrivateKey)) {
 					System.err.println("Address : " + addressByPrivateKey + " PK : " + randomPrivateKey);
 				}
-				randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey);
+				if (i != 0 && i % 100000 == 0) {
+					randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.valueOf(1000000));
+				} else {
+					randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.ONE);
+				}
 			}
 		}
 	}
