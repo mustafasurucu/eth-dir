@@ -24,9 +24,9 @@ public class PrivateKeyServiceImpl implements PrivateKeyService {
 	}
 
 	@Override
-	public String incrementPrivateKey(String privateKey) {
+	public String incrementPrivateKey(String privateKey, BigInteger amount) {
 		BigInteger decimal = new BigInteger(privateKey, 16);
-		decimal = decimal.add(BigInteger.ONE);
+		decimal = decimal.add(amount);
 		return decimal.toString(16);
 	}
 
