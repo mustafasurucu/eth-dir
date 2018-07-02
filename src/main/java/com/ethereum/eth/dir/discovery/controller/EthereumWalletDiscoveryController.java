@@ -109,11 +109,6 @@ public class EthereumWalletDiscoveryController {
 				if (lowerCaseAddressList.contains(addressByPrivateKey)) {
 					System.err.println("Address : " + addressByPrivateKey + " PK : " + randomPrivateKey);
 				}
-				if (i != 0 && i % 100000 == 0) {
-					randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.valueOf(1000000));
-				} else {
-					randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.ONE);
-				}
 			}
 		}
 	}
