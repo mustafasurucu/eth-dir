@@ -101,15 +101,17 @@ public class EthereumWalletDiscoveryController {
 
 		addressList.forEach(s -> lowerCaseAddressList.add(s.toLowerCase()));
 
+		String randomPrivateKey = privateKeyService.getRandomPrivateKey();
 		while (true) {
-			String randomPrivateKey = privateKeyService.getRandomPrivateKey();
-			System.out.println("Random Private Key : " + randomPrivateKey);
 			for (int i = 0; i < 1000000; i++) {
+				//System.out.println("Random Private Key : " + randomPrivateKey);
 				String addressByPrivateKey = ethereumClientService.getAddressByPrivateKey(randomPrivateKey);
 				if (lowerCaseAddressList.contains(addressByPrivateKey)) {
 					System.err.println("Address : " + addressByPrivateKey + " PK : " + randomPrivateKey);
 				}
+				randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.ONE);
 			}
+			randomPrivateKey = privateKeyService.incrementPrivateKey(randomPrivateKey, BigInteger.valueOf(1000000));
 		}
 	}
 
