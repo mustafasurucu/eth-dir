@@ -1,8 +1,7 @@
 package com.ethereum.eth.dir.discovery.service;
 
-import java.math.BigInteger;
-
 import com.ethereum.eth.dir.discovery.model.EthereumWallet;
+import com.ethereum.eth.dir.discovery.model.request.TransferEtherRequest;
 
 public interface EthereumClientService {
 
@@ -12,6 +11,6 @@ public interface EthereumClientService {
 
 	String getAddressByPrivateKey(String privateKey);
 
-	void transferEther(String fromPK, String toAddress, BigInteger amount);
+	void transferEther(TransferEtherRequest request);
 
 }

@@ -1,16 +1,11 @@
 package com.ethereum.eth.dir.discovery.service.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.concurrent.ExecutionException;
-
+import com.ethereum.eth.dir.discovery.model.EthereumWallet;
+import com.ethereum.eth.dir.discovery.model.request.TransferEtherRequest;
+import com.ethereum.eth.dir.discovery.service.EthereumClientService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.TransactionEncoder;
-import org.web3j.crypto.WalletUtils;
+import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
@@ -21,8 +16,10 @@ import org.web3j.utils.Convert;
 import org.web3j.utils.Convert.Unit;
 import org.web3j.utils.Numeric;
 
-import com.ethereum.eth.dir.discovery.model.EthereumWallet;
-import com.ethereum.eth.dir.discovery.service.EthereumClientService;
+import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class EthereumClientServiceImpl implements EthereumClientService {
@@ -32,10 +29,10 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 
 	private Web3j web3j;
 
-	public EthereumClientServiceImpl() {
+	@PostConstruct
+	public void init() {
 		web3j = Web3j.build(new HttpService("https://mainnet.infura.io/<your-token>"));
 	}
-
 	@Override
 	public EthereumWallet getWalletByAddress(String privateKey, String address) {
 
@@ -80,11 +77,11 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 	}
 
 	@Override
-	public void transferEther(String fromPK, String toAddress, BigInteger amount) {
+	public void transferEther(TransferEtherRequest request) {
 		String fromAddress = null;
 		Credentials credentials;
-		if (WalletUtils.isValidPrivateKey(fromPK)) {
-			BigInteger key = new BigInteger(fromPK, 16);
+		if (WalletUtils.isValidPrivateKey(request.getPrivateKey())) {
+			BigInteger key = new BigInteger(request.getPrivateKey(), 16);
 			ECKeyPair ecKeyPair = ECKeyPair.create(key);
 			credentials = Credentials.create(ecKeyPair);
 			fromAddress = credentials.getAddress();
@@ -101,7 +98,7 @@ public class EthereumClientServiceImpl implements EthereumClientService {
 			System.out.println(nonce);
 
 			RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, GAS_PRICE, GAS_LIMIT,
-					toAddress, amount);
+					request.getToAddress(), request.getAmount());
 
 			byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
 			String hexValue = Numeric.toHexString(signedMessage);
