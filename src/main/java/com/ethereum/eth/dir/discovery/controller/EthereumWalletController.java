@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class EthereumWalletDiscoveryController {
+public class EthereumWalletController {
 
 	@Autowired
 	private EthereumClientService ethereumClientService;
