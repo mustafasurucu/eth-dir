@@ -1,8 +1,8 @@
-package com.ethereum.eth.dir.discovery.controller;
+package com.ethereum.eth.dir.controller;
 
-import com.ethereum.eth.dir.discovery.model.EthereumWallet;
-import com.ethereum.eth.dir.discovery.model.request.TransferEtherRequest;
-import com.ethereum.eth.dir.discovery.service.EthereumClientService;
+import com.ethereum.eth.dir.model.EthereumWallet;
+import com.ethereum.eth.dir.model.request.TransferEtherRequest;
+import com.ethereum.eth.dir.service.EthereumClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,5 +33,4 @@ public class EthereumWalletController {
 		ethereumClientService.transferEther(request);
 		return ResponseEntity.accepted().body(null);
 	}
-
 }

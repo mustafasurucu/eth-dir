@@ -10,5 +10,4 @@ public class EthereumAddressUtil {
 	public static List<String> getAddressList(String path) throws IOException {
 		return Files.readAllLines(Paths.get(path));
 	}
-
 }

@@ -1,8 +1,8 @@
-package com.ethereum.eth.dir.discovery.service.impl;
+package com.ethereum.eth.dir.service.impl;
 
-import com.ethereum.eth.dir.discovery.model.EthereumWallet;
-import com.ethereum.eth.dir.discovery.model.request.TransferEtherRequest;
-import com.ethereum.eth.dir.discovery.service.EthereumClientService;
+import com.ethereum.eth.dir.model.EthereumWallet;
+import com.ethereum.eth.dir.model.request.TransferEtherRequest;
+import com.ethereum.eth.dir.service.EthereumClientService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.web3j.crypto.*;

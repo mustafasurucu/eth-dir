@@ -1,11 +1,11 @@
-package com.ethereum.eth.dir.discovery.service.impl;
+package com.ethereum.eth.dir.service.impl;
 
 import java.math.BigInteger;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
-import com.ethereum.eth.dir.discovery.service.PrivateKeyService;
+import com.ethereum.eth.dir.service.PrivateKeyService;
 
 @Service
 public class PrivateKeyServiceImpl implements PrivateKeyService {

@@ -1,4 +1,4 @@
-package com.ethereum.eth.dir.discovery.model;
+package com.ethereum.eth.dir.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

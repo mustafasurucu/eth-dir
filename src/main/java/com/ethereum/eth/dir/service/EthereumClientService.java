@@ -1,7 +1,7 @@
-package com.ethereum.eth.dir.discovery.service;
+package com.ethereum.eth.dir.service;
 
-import com.ethereum.eth.dir.discovery.model.EthereumWallet;
-import com.ethereum.eth.dir.discovery.model.request.TransferEtherRequest;
+import com.ethereum.eth.dir.model.EthereumWallet;
+import com.ethereum.eth.dir.model.request.TransferEtherRequest;
 
 public interface EthereumClientService {
 

@@ -1,6 +1,6 @@
 package com.ethereum.eth.dir.listener;
 
-import com.ethereum.eth.dir.discovery.service.DiscoveryService;
+import com.ethereum.eth.dir.service.DiscoveryService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

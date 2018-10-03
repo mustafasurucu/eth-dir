@@ -1,4 +1,4 @@
-package com.ethereum.eth.dir.discovery.service;
+package com.ethereum.eth.dir.service;
 
 import java.math.BigInteger;
 
